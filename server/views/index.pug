@@ -1,0 +1,15 @@
+h1 SEARCH FUCKIN` ENGINE
+
+if errors
+    each error in errors
+        h1 #{error}
+form( method='POST')
+    label search
+    input(name='search',type="text", value=value)
+    button Search
+
+if datas
+    ul
+        each data in datas
+            li
+                span= data.ename
