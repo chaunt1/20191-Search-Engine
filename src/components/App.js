@@ -1,17 +1,11 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-import ImageList from './ImageList';
+import ResultList from './ResultList';
 
 class App extends React.Component {
-    // state = { result: [] }
-
-    constructor(props) {
-        super(props);
-        this.state = { result: []}
-    }
+    state = { result: [] };
 
     onSearchSubmit = async term => {
-        console.log(term);
         await fetch("http://localhost:3001", {
             method: 'post',
             headers: {
@@ -22,16 +16,18 @@ class App extends React.Component {
                 'query': term
             })
             })
-            .then(res => {
-                res.json()
+            .then(res => res.json()
                 .then(
-                    data =>    { this.setState({ result: data })
-                    console.log(this.state.result.data.length)}
-                    )})
+                    data => {
+                        let b = Object.keys(data).map(key => [data[key]]);
+                        this.setState({ result: b[0][0] })
+                        console.log(this.state.result)
+                    }
+                ))
+            .catch(err => console.log(err));
     };
 
     render() {
-        console.log(this.state.result.data);
         return (
             <div>
                 <div className="page header">
@@ -45,8 +41,8 @@ class App extends React.Component {
                 </div>
                 <div className="ui container" style={{ marginTop: '10px' }}>
                     <SearchBar onSubmit={this.onSearchSubmit} />
-                    Found: {this.state.result.data} results
-                    {/* <ImageList images={this.state.result} /> */}
+                    Found: {this.state.result.length} results
+                    <ResultList result={this.state.result} />
                 </div>
                 <div className="footer">
                     <div className="ui container">
