@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 
 export default class Result extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         let {ename, vname, director, country, content, tag, url} = this.props.result;
