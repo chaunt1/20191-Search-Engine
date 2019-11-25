@@ -59,3 +59,7 @@ let a =
     })
 console.log(b[0][1].vname)
 console.log(c[0])
+
+let d = [1,2,3];
+
+console.log(d.map((d) => d + ', '));
