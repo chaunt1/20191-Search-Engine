@@ -19,8 +19,8 @@ class FilmCrawler(scrapy.Spider):
 
     def parse_film(self, response):
         items = FilmItem()
-        # items['img'] = response.xpath(
-        #     '//div[@class="movie-l-img"]//img[@class="title-1"]/@src').get()
+        items['img'] = response.css(
+            '.movie-l-img img::attr(src)').extract()
         items['name'] = response.css(
             '.title-1::text').get()
         items['realname'] = response.css(

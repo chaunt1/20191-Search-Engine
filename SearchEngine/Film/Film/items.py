@@ -11,8 +11,8 @@ import scrapy
 
 class FilmItem(scrapy.Item):
     # define the fields for your item here like:
-    # title = scrapy.Field()
     # img = scrapy.Field()
+    img = scrapy.Field()
     name = scrapy.Field()
     realname = scrapy.Field()
     status = scrapy.Field()
