@@ -3,14 +3,13 @@ import React from 'react';
 class SearchBar extends React.Component {
     state = { term: '' };
 
-    onFormSubmit = event => {
+    onFormSubmit = event =>{
         event.preventDefault();
-
         this.props.onSubmit(this.state.term);
     }
 
-    render() {
-        return (
+    render(){
+        return(
             <div className="ui segment">
                 <form onSubmit={this.onFormSubmit} className="ui form" method="POST">
                     <div className="field">
@@ -20,7 +19,7 @@ class SearchBar extends React.Component {
                 </form>
             </div>
         );
-    }
-}
+    };
+};
 
 export default SearchBar;

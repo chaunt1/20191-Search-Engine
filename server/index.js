@@ -43,11 +43,6 @@ app.post('/',(req,res)=>{
         data : data.response.docs,
         value:req.body.search
     })}
-    // .then(data => console.log(data.response.docs[0]))
-    // .then(data => res.json({
-    //   data: data.response.docs,
-    //   value: search
-    // }))
   )
   .catch(err => console.log(err))
 })

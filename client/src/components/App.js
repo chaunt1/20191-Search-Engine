@@ -39,13 +39,13 @@ class App extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="ui container" style={{ marginTop: '10px' }}>
+                <div className="ui container" style={{ marginTop: '10px', marginBottom: '200px' }}>
                     <SearchBar onSubmit={this.onSearchSubmit} />
                     Found: {this.state.result.length} results
                     <ResultList result={this.state.result} />
                 </div>
                 <div className="footer">
-                    <div className="ui container">
+                    <div className="ui container" style={{ marginBottom: '20px'}}>
                         <div className="ui section divider"></div>
                         <div className="ui small horizontal list">
                             <div className="disable item">&copy; 2019 GINP14</div>
