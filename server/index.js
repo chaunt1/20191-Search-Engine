@@ -26,7 +26,7 @@ app.post('/',(req,res)=>{
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "query":`name:${search}`
+      "query":`name:${`"${search}"`}`
   })
 })
   .then( res => res.json())
