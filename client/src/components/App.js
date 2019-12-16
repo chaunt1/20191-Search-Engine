@@ -48,6 +48,7 @@ class App extends React.Component {
                     <div className="ui container" style={{ marginBottom: '20px'}}>
                         <div className="ui section divider"></div>
                         <div className="ui small horizontal list">
+                            <i className="vn flag" />
                             <div className="disable item">&copy; 2019 GINP14</div>
                         </div>
                     </div>
