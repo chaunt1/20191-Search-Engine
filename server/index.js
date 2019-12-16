@@ -5,9 +5,6 @@ const bodyParser = require('body-parser')
 const fetch = require("node-fetch");
 const cors = require('cors');
 
-app.set('view engine', 'pug');
-app.set('views', './views')
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -20,13 +17,8 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-app.get('/',(req,res)=>{
-  res.render('index')
-})
-
 app.post('/',(req,res)=>{
   let search = req.body.query
-  console.log(req.body)
   fetch("http://localhost:8983/solr/films/select",{
     method: 'POST',
     headers: {
@@ -34,7 +26,7 @@ app.post('/',(req,res)=>{
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "query":`ename:${search}`
+      "query":`name:${search}`
   })
 })
   .then( res => res.json())
