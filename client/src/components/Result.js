@@ -3,14 +3,17 @@ import React, { Component } from 'react'
 export default class Result extends Component {
 
     render() {
-        let {content, country, director, id, img, keywords, name, realname, status, tag, url} = this.props.result;
         console.log(this.props.result)
-        console.log(this.props.result.IMBDb)
+        let {IMDb, content, country, dateIssue, director, id, img, keywords, name, realname, status, tag, url} = this.props.result;
+        console.log(this.props.result.IMDb)
+        if (IMDb) IMDb = 'IMDb: ' + IMDb;
+            else IMDb = 'IMDb: Không Rõ';
+        console.log(IMDb)
         url = 'https://phimmoi.net/' + url;
         tag = tag.map((t) => t + ', ');
         country = country.map((t) => t + ', ');
         return (
-            <div className="ui card container" data-tooltip="Adds" data-position="top left">
+            <div className="ui card container" >
                 <div className="image">
                     <img src={img} />
                 </div>
