@@ -13,7 +13,8 @@ class App extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                'query': term
+                'query': term.term,
+                'type': term.type
             })
             })
             .then(res => res.json()

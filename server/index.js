@@ -18,7 +18,8 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.post('/',(req,res)=>{
-  let search = req.body.query
+  let search = req.body.query;
+  let type = req.body.type;
   fetch("http://localhost:8983/solr/films/select",{
     method: 'POST',
     headers: {
@@ -26,7 +27,7 @@ app.post('/',(req,res)=>{
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "query":`name:"${search}"`
+      "query":`${type}:${`"${search}"`}`
   })
 })
   .then( res => res.json())
