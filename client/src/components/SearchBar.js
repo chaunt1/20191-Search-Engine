@@ -31,8 +31,8 @@ class SearchBar extends React.Component {
                         <label>Type</label>
                         <select onChange={this.handleChange.bind(this)} value={this.state.type}>
                             <option value="name">Name</option>
-                            <option value="keywords">Categories</option>
-                            <option value="tag">Other</option>
+                            <option value="tag">Categories</option>
+                            <option value="keywords">Other</option>
                         </select>
                     </div>
                 </form>

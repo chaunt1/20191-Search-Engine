@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
 
 export default class Result extends Component {
+    state = { opened: false };
+    toggleBox = this.toggleBox.bind(this);
+
+    toggleBox() {
+        const {opened} = this.state;
+        this.setState({
+            opened: !opened
+        });
+    }
 
     render() {
+        const {opened} = this.state;
+        let title
+        if(!opened) {
+            title = 'show';
+        }
         console.log(this.props.result)
         let {IMDb, content, country, dateIssue, director, id, img, keywords, name, realname, status, tag, url} = this.props.result;
-        console.log(this.props.result.IMDb)
         if (IMDb) IMDb = 'IMDb: ' + IMDb;
             else IMDb = 'IMDb: Không Rõ';
-        console.log(IMDb)
         url = 'https://phimmoi.net/' + url;
         tag = tag.map((t) => t + ', ');
         country = country.map((t) => t + ', ');
@@ -24,18 +36,23 @@ export default class Result extends Component {
                     </div>
                     <div className="description">{realname}</div>
                 </div>
-                <div className="ui two button attached buttons">
-                <div className="ui button">
-                    <i className="add icon"></i>
-                    More Info
+                <div className="extra content">
+                        <div className="ui button" onClick={this.toggleBox}>
+                            <i className="add icon"></i>
+                            More Info
+                        </div>
+                    <a href={url}>
+                        <div className="ui primary button">
+                                <i className="play icon" />
+                                Watch
+                        </div>
+                    </a>
                 </div>
-                <a href={url}>
-                    <div className="ui primary button">
-                            <i className="play icon" />
-                            Watch
-                    </div>
-                </a>
-                </div>
+                {opened && (
+                            <div class="boxContent">
+                                {IMDb}
+                            </div>
+                        )}
             </div>
         )
     }
