@@ -18,8 +18,18 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.post('/',(req,res)=>{
-  let search = req.body.query;
-  let type = req.body.type;
+  let search = req.body.search
+  let type = req.body.type
+  let rows = req.body.limit || 20;
+//pagtination
+let pageNumb = req.query.pageNumb
+const start = 0;
+let offset;
+if(!pageNumb){
+offset = start;
+}else if(pageNumb>0){
+  offset = (pageNumb-1) * rows;
+}
   fetch("http://localhost:8983/solr/films/select",{
     method: 'POST',
     headers: {
@@ -27,7 +37,9 @@ app.post('/',(req,res)=>{
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      "query":`${type}:${`"${search}"`}`
+      "query":`${type}:${`"${search}"`}`,
+      "limit": `${rows}`,
+      "offset": `${offset}`
   })
 })
   .then( res => res.json())
