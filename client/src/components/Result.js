@@ -1,22 +1,29 @@
 import React, { Component } from 'react'
+import './Result.css'
+
+class Popup extends Component {
+    render() {
+        return(
+            <div className="popup">
+                <div className="popup_inner">
+                    <h1>{this.props.text}</h1>
+                    <button onClick={this.props.closePopup}>Close</button>
+                </div>
+            </div>
+        );
+    }
+}
 
 export default class Result extends Component {
-    state = { opened: false };
-    toggleBox = this.toggleBox.bind(this);
+    state = { showPopup: false };
 
-    toggleBox() {
-        const {opened} = this.state;
+    tooglePopup() {
         this.setState({
-            opened: !opened
-        });
+            showPopup: !this.state.showPopup
+        })
     }
 
     render() {
-        const {opened} = this.state;
-        let title
-        if(!opened) {
-            title = 'show';
-        }
         console.log(this.props.result)
         let {IMDb, content, country, dateIssue, director, id, img, keywords, name, realname, status, tag, url} = this.props.result;
         if (IMDb) IMDb = 'IMDb: ' + IMDb;
@@ -27,7 +34,7 @@ export default class Result extends Component {
         return (
             <div className="ui card container" >
                 <div className="image">
-                    <img src={img} />
+                    <img style={{ width: "290px", height: "366.6px"}} src={img} />
                 </div>
                 <div className="content">
                     <a className="header">{name}</a>
@@ -37,10 +44,17 @@ export default class Result extends Component {
                     <div className="description">{realname}</div>
                 </div>
                 <div className="extra content">
-                        <div className="ui button" onClick={this.toggleBox}>
+                        <div className="ui button" onClick={this.tooglePopup.bind(this)}>
                             <i className="add icon"></i>
                             More Info
                         </div>
+                        {this.state.showPopup ?
+                            <Popup
+                                text='Close Me'
+                                closePopup={() => this.tooglePopup.bind(this)}
+                            />
+                            : null
+                        }
                     <a href={url}>
                         <div className="ui primary button">
                                 <i className="play icon" />
@@ -48,11 +62,6 @@ export default class Result extends Component {
                         </div>
                     </a>
                 </div>
-                {opened && (
-                            <div class="boxContent">
-                                {IMDb}
-                            </div>
-                        )}
             </div>
         )
     }
