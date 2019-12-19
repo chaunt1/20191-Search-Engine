@@ -3,7 +3,7 @@ import SearchBar from './SearchBar';
 import ResultList from './ResultList';
 
 class App extends React.Component {
-    state = { result: [] };
+    state = { result: [], found: 0 };
 
     onSearchSubmit = async term => {
         await fetch("http://localhost:3001", {
@@ -14,7 +14,8 @@ class App extends React.Component {
             },
             body: JSON.stringify({
                 'query': term.term,
-                'type': term.type
+                'type': term.type,
+                'pageNumb': term.page
             })
             })
             .then(res => res.json()

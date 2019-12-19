@@ -1,18 +1,6 @@
 import React, { Component } from 'react'
 import './Result.css'
-
-class Popup extends Component {
-    render() {
-        return(
-            <div className="popup">
-                <div className="popup_inner">
-                    <h1>{this.props.text}</h1>
-                    <button onClick={this.props.closePopup}>Close</button>
-                </div>
-            </div>
-        );
-    }
-}
+import ModalCre from './Modal'
 
 export default class Result extends Component {
     state = { showPopup: false };
@@ -30,6 +18,7 @@ export default class Result extends Component {
             else IMDb = 'IMDb: Không Rõ';
         url = 'https://phimmoi.net/' + url;
         tag = tag.map((t) => t + ', ');
+        keywords = keywords.map((t) => t + ', ');
         country = country.map((t) => t + ', ');
         return (
             <div className="ui card container" >
@@ -44,17 +33,7 @@ export default class Result extends Component {
                     <div className="description">{realname}</div>
                 </div>
                 <div className="extra content">
-                        <div className="ui button" onClick={this.tooglePopup.bind(this)}>
-                            <i className="add icon"></i>
-                            More Info
-                        </div>
-                        {this.state.showPopup ?
-                            <Popup
-                                text='Close Me'
-                                closePopup={() => this.tooglePopup.bind(this)}
-                            />
-                            : null
-                        }
+                    <ModalCre img={img} director={director} imdb={IMDb} content={content} country={country} dateIssue={dateIssue} keywords={keywords} name={name} realname={realname} tag={tag} url={url}/>
                     <a href={url}>
                         <div className="ui primary button">
                                 <i className="play icon" />
