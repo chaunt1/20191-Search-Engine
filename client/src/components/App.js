@@ -4,9 +4,10 @@ import ResultList from './ResultList';
 import {Pagination} from 'semantic-ui-react';
 
 class App extends React.Component {
-    state = { result: [], found: 0, page: false };
+    state = { result: [], found: 0, page: false, activePage: 1, term: '', type: '' };
 
     onSearchSubmit = async term => {
+        this.setState({term: term.term, type: term.type})
         await fetch("http://localhost:3001", {
             method: 'post',
             headers: {
@@ -16,7 +17,7 @@ class App extends React.Component {
             body: JSON.stringify({
                 'query': term.term,
                 'type': term.type,
-                'pageNumb': this.state.page
+                'pageNumb': this.state.activePage
             })
             })
             .then(res => res.json()
@@ -31,6 +32,17 @@ class App extends React.Component {
                 ))
             .catch(err => console.log(err));
     };
+
+    handlePaginationChange = (e, {activePage}) => {
+        this.setState({ activePage }, function() {
+            let term2 = {
+                term: this.state.term,
+                type: this.state.type
+            }
+            this.onSearchSubmit(term2)
+            window.scrollTo(0, 0)
+        })
+    }
 
     render() {
         return (
@@ -50,7 +62,7 @@ class App extends React.Component {
                     <ResultList result={this.state.result} />
                 </div>
                 <div className="footer">
-                    {this.state.page && <Pagination defaultActivePage={1} totalPages={(this.state.found - this.state.found % 10) / 10} style={{display: 'flex',  justifyContent:'center', alignItems:'center'}} />}
+                    {this.state.page && <Pagination activePage={this.state.activePage} onPageChange={this.handlePaginationChange} totalPages={(this.state.found - this.state.found % 10) / 10} style={{display: 'flex',  justifyContent:'center', alignItems:'center'}} />}
                     <div className="ui container" style={{ marginBottom: '20px'}}>
                         <div className="ui section divider"></div>
                         <div className="ui small horizontal list">
