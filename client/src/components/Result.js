@@ -12,7 +12,6 @@ export default class Result extends Component {
     }
 
     render() {
-        console.log(this.props.result)
         let {IMDb, content, country, dateIssue, director, id, img, keywords, name, realname, status, tag, url} = this.props.result;
         if (IMDb) IMDb = 'IMDb: ' + IMDb;
             else IMDb = 'IMDb: Không Rõ';

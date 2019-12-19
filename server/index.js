@@ -46,7 +46,7 @@ app.post('/',(req,res)=>{
   .then( res => res.json())
     .then(data => {
       console.log(data)
-
+      data.response.docs.unshift(data.response.numFound)
       res.send({
         data : data.response.docs,
         value:req.body.search

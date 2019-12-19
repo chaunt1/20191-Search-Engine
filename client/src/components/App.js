@@ -1,9 +1,10 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import ResultList from './ResultList';
+import {Pagination} from 'semantic-ui-react';
 
 class App extends React.Component {
-    state = { result: [], found: 0 };
+    state = { result: [], found: 0, page: false };
 
     onSearchSubmit = async term => {
         await fetch("http://localhost:3001", {
@@ -15,15 +16,17 @@ class App extends React.Component {
             body: JSON.stringify({
                 'query': term.term,
                 'type': term.type,
-                'pageNumb': term.page
+                'pageNumb': this.state.page
             })
             })
             .then(res => res.json()
                 .then(
                     data => {
                         let b = Object.keys(data).map(key => [data[key]]);
+                        this.setState({ found: b[0][0][0]})
+                        b[0][0].shift()
                         this.setState({ result: b[0][0] })
-                        console.log(this.state.result)
+                        if (this.state.found > 0) this.setState({ page: true });
                     }
                 ))
             .catch(err => console.log(err));
@@ -43,10 +46,11 @@ class App extends React.Component {
                 </div>
                 <div className="ui container" style={{ marginTop: '10px', marginBottom: '200px' }}>
                     <SearchBar onSubmit={this.onSearchSubmit} />
-                    Found: {this.state.result.length} results
+                    Found: {this.state.found} results
                     <ResultList result={this.state.result} />
                 </div>
                 <div className="footer">
+                    {this.state.page && <Pagination defaultActivePage={1} totalPages={(this.state.found - this.state.found % 10) / 10} style={{display: 'flex',  justifyContent:'center', alignItems:'center'}} />}
                     <div className="ui container" style={{ marginBottom: '20px'}}>
                         <div className="ui section divider"></div>
                         <div className="ui small horizontal list">

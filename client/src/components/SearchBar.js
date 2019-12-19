@@ -1,14 +1,13 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
-    state = { term: '', type: 'name', page: 1 };
+    state = { term: '', type: 'name' };
 
     onFormSubmit = event =>{
         event.preventDefault();
         let t = {
             term: this.state.term,
             type: this.state.type,
-            page: 1
         }
         this.props.onSubmit(t);
         console.log(t)
